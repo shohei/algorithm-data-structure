@@ -3,7 +3,7 @@
 class UnionFind():
     def __init__(self, n):
         self.par = [-1]*n
-        self.siz = [1]*n 
+        self.siz = [1]*n
 
     def root(self, x):
         if self.par[x]==-1:
@@ -14,8 +14,8 @@ class UnionFind():
 
     def issame(self, x, y):
         res = (self.root(x) == self.root(y))
-        return res 
-    
+        return res
+
     def unite(self, x, y):
         x = self.root(x)
         y = self.root(y)
@@ -38,25 +38,25 @@ class UnionFind():
         print("     par:",self.par)
         print("     siz:",self.siz)
 
-uf = UnionFind(7)
-print("initialize")
-uf.dump()
-print("unite 1 and 2")
-uf.unite(1,2)
-uf.dump()
-print("unite 2 and 3")
-uf.unite(2,3)
-uf.dump()
-print("unite 5 and 6")
-uf.unite(5,6)
-uf.dump()
-print("Are 1 and 3 the same group? ",end="")
-print(uf.issame(1,3))
-print("Are 2 and 5 the same group? ",end="")
-print(uf.issame(2,5))
-print("unite 1 and 6")
-uf.unite(1,6)
-uf.dump()
-print("Are 2 and 5 the same group? ",end="")
-print(uf.issame(2,5))
+G = [[4,(4,1)],[3,(1,6)],[2,(4,6)],[9,(4,2)],[8,(1,3)],[6,(7,3)],[7,(6,7)],[5,(2,7)],[5,(3,0)],[10,(2,5)],[3,(7,0)],[6,(5,0)]]
+G.sort()
+M = len(G)
+N = max([max(uv[1][0],uv[1][1]) for uv in G])+1
+res = 0
+uf = UnionFind(N)
 
+for i in range(M):
+    w = G[i][0]
+    u = G[i][1][0]
+    v = G[i][1][1]
+
+    if uf.issame(u,v):
+        #print("{} and {} are already in the same group".format(u,v))
+        continue
+
+    res += w
+    uf.unite(u,v)
+
+    #print(res)
+
+print(res)
